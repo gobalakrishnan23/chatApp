@@ -37,10 +37,9 @@ function Chat({user}) {
 
     return (
       <>
-       <div className=" flex justify-center items-center w-dvw h-full flex-col">
-         <div className=" w-full h-full">
-            <div></div>
-            <div className="chat-message h-full"  ref={messagesEndRef}>
+       <div className=" flex justify-center items-center w-screen h-screen flex-col">
+         <div className=" w-screen h-screen">
+            <div className="chat-message"  ref={messagesEndRef}>
                 {
                     message.map((message)=>(
                         <ChatMessage user={user} {...message} key={message.id} messagesEndRef={messagesEndRef}/>
