@@ -46,7 +46,7 @@ function Chat({user,online,handleLogin}) {
                 }
             </div>
             <div className=" flex bg-gray-700 p-1 px-4 gap-3">
-                <input className=" placeholder:text-white w-full outline-0 text-white" type="text" value={text} onChange={(e)=>setText(e.target.value)} placeholder="Message"></input>
+                <input className="  w-full placeholder:text-white outline-0 text-white" type="text" value={text} onChange={(e)=>setText(e.target.value)} placeholder="Message"></input>
                 <button onClick={handleSubmit} className=" text-gray-950 bg-gray-600 p-2 rounded-4xl font-bold">send</button>
             </div>
          </div>
