@@ -11,7 +11,8 @@ function ChatMessage({text,logo,email,user,messagesEndRef,name}) {
         </span>
       ):(
         <span className="message-left flex gap-1">
-            <img src={logo} alt="logo"></img>
+            <div>{name}</div>
+            <img src={logo} alt="logo" className="logo-icon"></img>
             <span className="message-text">{text}</span>
         </span>
       )}
