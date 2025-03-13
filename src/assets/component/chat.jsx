@@ -3,7 +3,7 @@ import ChatMessage from "./chatMessage";
 import { addDoc,collection, doc, onSnapshot, } from "firebase/firestore";
 import { db } from "../config/firebase";
 
-function Chat({user}) {
+function Chat({user,online}) {
 
     const [message,setMessage] = useState([]);
     const [text,setText] = useState("");
@@ -11,7 +11,6 @@ function Chat({user}) {
     const messagesEndRef = useRef("");
 
     async function handleSubmit(){
-        alert(text);
         const date = new Date();
         await addDoc(messagesRef,{
             text,
@@ -31,7 +30,6 @@ function Chat({user}) {
         const unsubscribe = onSnapshot(messagesRef,(quertSnapshot) => {
             const newMessages = quertSnapshot.docs.map((doc) => doc.data()).sort((a,b) => a.date - b.date);
             setMessage(newMessages)
-            messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
         });
         return () => unsubscribe();
     },[])
@@ -43,7 +41,7 @@ function Chat({user}) {
             <div className="chat-message"  ref={messagesEndRef}>
                 {
                     message.map((message)=>(
-                        <ChatMessage user={user} {...message} key={message.id} messagesEndRef={messagesEndRef}/>
+                        <ChatMessage user={user} {...message} key={message.id} messagesEndRef={messagesEndRef} online={online}/>
                     ))
                 }
             </div>

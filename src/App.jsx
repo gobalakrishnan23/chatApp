@@ -7,18 +7,20 @@ import { auth, provider } from './assets/config/firebase';
 function App() {
 
   const [user,setUser] = useState(null);
+  const [online,setOnline] = useState(false);
 
   function handleLogin(){
     signInWithPopup(auth,provider)
        .then((result) => setUser(result._tokenResponse))
        .catch((error) => console.log(error));
+       setOnline(true);
   }
   
   return (
     <>
      <div className="w-screen h-screen">
        {
-        user ? <Chat user={user}/> : <div className=' flex flex-col justify-center items-center h-screen'>
+        user ? <Chat user={user} online={online}/> : <div className=' flex flex-col justify-center items-center h-screen'>
           <div>
             <img  src='vector-chat-icon-png_302635.jpg' width={100} height={100} style={{borderRadius:"50%"}}></img>
           </div>
