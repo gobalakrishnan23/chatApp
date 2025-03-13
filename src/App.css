@@ -2,7 +2,6 @@
 
 .chat-message{
     background-color: gray;
-    padding: 1em;
     height:calc(100% - 50px);
     overflow-y: auto;
     color: gray;
@@ -12,15 +11,15 @@
 .message-right {
     background-color: #91fbff;
     border-radius: 25px;
-    padding: 0.5em 1em !important;
-    margin: 1em;
+    padding: 5px;
+    margin: 5px;
 }
 
 .message-left{
     background-color: aliceblue;
     border-radius: 25px;
-    padding: 0.5em 1em !important;
-    margin: 1em;
+    padding: 5px;
+    margin: 5px;
 }
 
 .message-text{
