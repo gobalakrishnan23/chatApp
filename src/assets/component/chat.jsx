@@ -33,7 +33,7 @@ function Chat({user}) {
             messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
         });
         return () => unsubscribe();
-    },[text])
+    },[])
 
     return (
       <>
