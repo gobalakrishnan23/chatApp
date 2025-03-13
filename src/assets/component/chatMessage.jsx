@@ -10,10 +10,10 @@ function ChatMessage({text,logo,email,user,messagesEndRef,name}) {
             <img src={logo} alt="logo" className="logo-icon"></img>
         </span>
       ):(
-        <span className="message-left flex gap-1">
+        <span className="message-left flex gap-1 w-fit items-center">
             <div>{name}</div>
-            <img src={logo} alt="logo" className="logo-icon"></img>
-            <span className="message-text">{text}</span>
+            <img src={logo} alt="logo" className="logo-icon" ></img>
+            <span className="message-text" ref={messagesEndRef}>{text}</span>
         </span>
       )}
      </div>
