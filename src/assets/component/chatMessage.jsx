@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 function ChatMessage({
   text,
   logo,
@@ -7,6 +9,10 @@ function ChatMessage({
   name,
   online,
 }) {
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, ["active"]);
+
   return (
     <>
       <div
@@ -15,7 +21,7 @@ function ChatMessage({
         }`}
       >
         {user.email === email ? (
-          <div>
+          <div className="active">
             <span className="message-right flex gap-1 w-fit h-fit items-center">
               <span className="message-text" ref={messagesEndRef}>
                 {text}
@@ -23,14 +29,11 @@ function ChatMessage({
             </span>
             <div className=" flex gap-2 items-center justify-end pr-2">
               <div className=" text-white">{name}</div>
-              <div>
-                <h2>Status: {online ? "🟢 Online" : "🔴 Offline"}</h2>
-              </div>
               <img src={logo} alt="logo" className="logo-icon"></img>
             </div>
           </div>
         ) : (
-          <div>
+          <div className="active">
             <span className="message-left flex gap-1 w-fit items-center">
               <span className="message-text" ref={messagesEndRef}>
                 {text}
@@ -38,9 +41,6 @@ function ChatMessage({
             </span>
             <div className=" flex gap-2 items-center pl-2">
               <img src={logo} alt="logo" className="logo-icon"></img>
-              <div>
-                <h2>Status: {online}</h2>
-              </div>
               <div className=" text-white">{name}</div>
             </div>
           </div>

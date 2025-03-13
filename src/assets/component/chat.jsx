@@ -3,7 +3,7 @@ import ChatMessage from "./chatMessage";
 import { addDoc,collection, doc, onSnapshot, } from "firebase/firestore";
 import { db } from "../config/firebase";
 
-function Chat({user,online}) {
+function Chat({user,online,handleLogin}) {
 
     const [message,setMessage] = useState([]);
     const [text,setText] = useState("");
@@ -24,7 +24,7 @@ function Chat({user,online}) {
 
     useEffect(()=>{
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    },[handleSubmit])
+    },[handleLogin]);
 
     useEffect(()=>{
         const unsubscribe = onSnapshot(messagesRef,(quertSnapshot) => {

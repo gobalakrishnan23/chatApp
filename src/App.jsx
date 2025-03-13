@@ -9,19 +9,6 @@ function App() {
   const [user,setUser] = useState(null);
   const [online,setOnline] = useState(false);
 
-  useEffect(() => {
-    const handleOnline = () => setOnline(true);
-    const handleOffline = () => setOnline(false);
-
-    window.addEventListener("online", handleOnline);
-    window.addEventListener("offline", handleOffline);
-
-    return () => {
-      window.removeEventListener("online", handleOnline);
-      window.removeEventListener("offline", handleOffline);
-    };
-  }, []);
-
   function handleLogin(){
     signInWithPopup(auth,provider)
        .then((result) => setUser(result._tokenResponse))
@@ -33,7 +20,7 @@ function App() {
     <>
      <div className="w-screen h-screen">
        {
-        user ? <Chat user={user} online={online}/> : <div className=' flex flex-col justify-center items-center h-screen'>
+        user ? <Chat user={user} online={online} handleLogin={handleLogin}/> : <div className=' flex flex-col justify-center items-center h-screen'>
           <div>
             <img  src='vector-chat-icon-png_302635.jpg' width={100} height={100} style={{borderRadius:"50%"}}></img>
           </div>
