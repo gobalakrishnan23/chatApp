@@ -11,6 +11,7 @@ function Chat({user}) {
     const messagesEndRef = useRef("");
 
     async function handleSubmit(){
+        alert(text);
         const date = new Date();
         await addDoc(messagesRef,{
             text,

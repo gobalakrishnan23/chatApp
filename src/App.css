@@ -4,19 +4,19 @@
     background-color: gray;
     height:calc(100% - 50px);
     overflow-y: auto;
-    color: gray;
+    color: white;
     align-items: flex-end;
 }
 
 .message-right {
-    background-color: #91fbff;
+    background-color: rgba(255, 255, 0, 0.665);
     border-radius: 25px;
     padding: 5px;
     margin: 5px;
 }
 
 .message-left{
-    background-color: aliceblue;
+    background-color: rgba(0, 0, 151, 0.335);
     border-radius: 25px;
     padding: 5px;
     margin: 5px;
@@ -27,6 +27,7 @@
     padding: 10px;
     width: fit-content;
     max-width: 250px;
+    margin-right: 27px;
 }
 .logo-icon{
     height: 30px;

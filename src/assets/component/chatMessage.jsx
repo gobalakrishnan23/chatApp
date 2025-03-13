@@ -13,7 +13,7 @@ function ChatMessage({ text, logo, email, user, messagesEndRef, name }) {
                 {text}
               </span>
             </span>
-            <div className=" flex gap-2 items-center justify-end">
+            <div className=" flex gap-2 items-center justify-end pr-2">
               <div className=" text-white">{name}</div>
               <img src={logo} alt="logo" className="logo-icon"></img>
             </div>
@@ -25,7 +25,7 @@ function ChatMessage({ text, logo, email, user, messagesEndRef, name }) {
                 {text}
               </span>
             </span>
-            <div className=" flex gap-2 items-center">
+            <div className=" flex gap-2 items-center pl-2">
               <img src={logo} alt="logo" className="logo-icon"></img>
               <div className=" text-white">{name}</div>
             </div>
