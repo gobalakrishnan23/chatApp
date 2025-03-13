@@ -7,7 +7,7 @@ function ChatMessage({
   user,
   messagesEndRef,
   name,
-  online,
+  tick,
 }) {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -26,7 +26,7 @@ function ChatMessage({
           <div className="active">
             <span className="message-right flex gap-1 w-fit h-fit items-center">
               <span className="message-text" ref={messagesEndRef}>
-                {text}
+                {text}<div>{tick ? <img src=""></img> : <img src=""></img>}</div>
               </span>
             </span>
             <div className=" flex gap-2 items-center justify-end pr-2">

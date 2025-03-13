@@ -3,7 +3,7 @@ import ChatMessage from "./chatMessage";
 import { addDoc,collection, doc, onSnapshot, } from "firebase/firestore";
 import { db } from "../config/firebase";
 
-function Chat({user,online,handleLogin}) {
+function Chat({user,tick,handleLogin}) {
 
     const [message,setMessage] = useState([]);
     const [text,setText] = useState("");

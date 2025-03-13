@@ -7,7 +7,7 @@ import { auth, provider } from './assets/config/firebase';
 function App() {
 
   const [user,setUser] = useState(null);
-  const [online,setOnline] = useState(false);
+  const [tick,setTick] = useState(false);
 
   function handleLogin(){
     signInWithPopup(auth,provider)
@@ -15,12 +15,25 @@ function App() {
        .catch((error) => console.log(error));
        setOnline(true);
   }
+
+  useEffect(() => {
+    const handleOnline = () => setTick(true);
+    const handleOffline = () => setTick(false);
+
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
+
+    return () => {
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
+    };
+  }, []);
   
   return (
     <>
      <div className="w-screen h-screen">
        {
-        user ? <Chat user={user} online={online} handleLogin={handleLogin}/> : <div className=' flex flex-col justify-center items-center h-screen'>
+        user ? <Chat user={user} tick={tick} handleLogin={handleLogin}/> : <div className=' flex flex-col justify-center items-center h-screen'>
           <div>
             <img  src='vector-chat-icon-png_302635.jpg' width={100} height={100} style={{borderRadius:"50%"}}></img>
           </div>
