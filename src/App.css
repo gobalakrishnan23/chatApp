@@ -3,7 +3,7 @@
 .chat-message{
     background-color: gray;
     padding: 1em;
-    height:92%;
+    height:calc(100% - 50px);
     overflow-y: auto;
     color: gray;
     align-items: flex-end;
