@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css'
 import Chat from './assets/component/chat';
 import { signInWithPopup } from 'firebase/auth';
@@ -8,6 +8,19 @@ function App() {
 
   const [user,setUser] = useState(null);
   const [online,setOnline] = useState(false);
+
+  useEffect(() => {
+    const handleOnline = () => setOnline(true);
+    const handleOffline = () => setOnline(false);
+
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
+
+    return () => {
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
+    };
+  }, []);
 
   function handleLogin(){
     signInWithPopup(auth,provider)

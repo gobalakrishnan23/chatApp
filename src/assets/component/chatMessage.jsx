@@ -1,4 +1,12 @@
-function ChatMessage({ text, logo, email, user, messagesEndRef, name,online }) {
+function ChatMessage({
+  text,
+  logo,
+  email,
+  user,
+  messagesEndRef,
+  name,
+  online,
+}) {
   return (
     <>
       <div
@@ -15,9 +23,9 @@ function ChatMessage({ text, logo, email, user, messagesEndRef, name,online }) {
             </span>
             <div className=" flex gap-2 items-center justify-end pr-2">
               <div className=" text-white">{name}</div>
-              {online && (
-                <button className=" border-2 border-green-700 rounded-4xl p-1 bg-green-700"></button>
-              )}
+              <div>
+                <h2>Status: {online ? "🟢 Online" : "🔴 Offline"}</h2>
+              </div>
               <img src={logo} alt="logo" className="logo-icon"></img>
             </div>
           </div>
@@ -30,6 +38,9 @@ function ChatMessage({ text, logo, email, user, messagesEndRef, name,online }) {
             </span>
             <div className=" flex gap-2 items-center pl-2">
               <img src={logo} alt="logo" className="logo-icon"></img>
+              <div>
+                <h2>Status: {online}</h2>
+              </div>
               <div className=" text-white">{name}</div>
             </div>
           </div>
