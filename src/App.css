@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+.chat-message{
+    background-color: gray;
+    padding: 1em;
+    max-height:100%;
+    overflow-y: auto;
+    color: gray;
+    align-items: flex-end;
+}
+
+.message-right {
+    background-color: #91fbff;
+    border-radius: 25px;
+    padding: 0.5em 1em !important;
+    margin: 1em;
+}
+
+.message-left{
+    background-color: aliceblue;
+    border-radius: 25px;
+    padding: 0.5em 1em !important;
+    margin: 1em;
+}
+
+.message-text{
+    font-size: 17px;
+    padding: 10px;
+}
+.logo-icon{
+    height: 50px;
+    width: 50px;
+    border-radius: 100%;
+}
