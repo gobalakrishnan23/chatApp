@@ -63,7 +63,7 @@ function Chat({ user, tick, handleLogin }) {
           <div className=" flex bg-gray-700 p-1 px-4 gap-3 items-center">
             <div>
               <div>
-                <img width={"20px"} height={"20px"}
+                <img width={"40px"} height={"40px"}
                   src="icons8-happy-50.png"
                   onClick={handleEmoji}
                 ></img>
