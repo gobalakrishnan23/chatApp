@@ -87,7 +87,7 @@ function Chat({ user, tick, handleLogin }) {
               <video
                 ref={videoRef}
                 autoPlay
-                className=" w-screen h-screen bg-black rounded-lg fixed top-0"
+                className=" w-screen h-screen bg-black fixed top-0"
               />
             )}
             {streaming && <img src="icons8-wrong-50.png" onClick={stopCamera} className=" fixed top-0"></img>}
