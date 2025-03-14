@@ -13,21 +13,7 @@ function App() {
     signInWithPopup(auth,provider)
        .then((result) => setUser(result._tokenResponse))
        .catch((error) => console.log(error));
-       setOnline(true);
   }
-
-  useEffect(() => {
-    const handleOnline = () => setTick(true);
-    const handleOffline = () => setTick(false);
-
-    window.addEventListener("online", handleOnline);
-    window.addEventListener("offline", handleOffline);
-
-    return () => {
-      window.removeEventListener("online", handleOnline);
-      window.removeEventListener("offline", handleOffline);
-    };
-  }, []);
   
   return (
     <>

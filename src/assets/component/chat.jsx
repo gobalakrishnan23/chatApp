@@ -41,7 +41,7 @@ function Chat({user,tick,handleLogin}) {
             <div className="chat-message"  ref={messagesEndRef}>
                 {
                     message.map((message)=>(
-                        <ChatMessage user={user} {...message} key={message.id} messagesEndRef={messagesEndRef} online={online}/>
+                        <ChatMessage user={user} {...message} key={message.id} messagesEndRef={messagesEndRef} tick={tick}/>
                     ))
                 }
             </div>

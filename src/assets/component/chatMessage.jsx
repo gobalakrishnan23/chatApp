@@ -1,14 +1,6 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
-function ChatMessage({
-  text,
-  logo,
-  email,
-  user,
-  messagesEndRef,
-  name,
-  tick,
-}) {
+function ChatMessage({ text, logo, email, user, messagesEndRef, name, tick }) {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, ["active"]);
@@ -25,8 +17,8 @@ function ChatMessage({
         {user.email === email ? (
           <div className="active">
             <span className="message-right flex gap-1 w-fit h-fit items-center">
-              <span className="message-text" ref={messagesEndRef}>
-                {text}<div>{tick ? <img src=""></img> : <img src=""></img>}</div>
+              <span className="message-text " ref={messagesEndRef}>
+                {text}
               </span>
             </span>
             <div className=" flex gap-2 items-center justify-end pr-2">
