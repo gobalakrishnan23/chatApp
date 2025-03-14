@@ -13,6 +13,13 @@ function Chat({ user, tick, handleLogin }) {
   const messagesEndRef = useRef("");
   const videoRef = useRef(null);
   const [streaming, setStreaming] = useState(false);
+  const webcamRef = useRef(null);
+  const [capturedImage, setCapturedImage] = useState([]);
+
+  const capture = () => {
+    const imageSrc = webcamRef.current.getScreenshot();
+    setCapturedImage(imageSrc);
+  };
 
   async function handleSubmit() {
     const date = new Date();
@@ -90,7 +97,32 @@ function Chat({ user, tick, handleLogin }) {
                 className=" w-screen h-screen bg-black fixed top-0"
               />
             )}
-            {streaming && <img src="icons8-wrong-50.png" onClick={stopCamera} className=" fixed top-0"></img>}
+            {streaming && (
+              <img
+                src="icons8-wrong-50.png"
+                onClick={stopCamera}
+                className=" fixed top-0"
+              ></img>
+            )}
+            {streaming && (
+              <div>
+                <div className=" flex justify-center" onClick={capture}>
+                  <button className=" border-2 border-white w-15 h-15 rounded-4xl fixed bg-white bottom-15"></button>
+                </div>
+                <div>
+                  <img
+                    src={capturedImage}
+                    className=" border-1 border-white w-10 h-10 rounded-4xl fixed bottom-17 left-15"
+                  ></img>
+                </div>
+                <div>
+                  <img
+                    src="icons8-change-48.png"
+                    className="w-10 h-10 rounded-4xl fixed bottom-17 right-15"
+                  ></img>
+                </div>
+              </div>
+            )}
           </div>
           <div className=" flex bg-gray-700 p-1 px-4 gap-5 items-center">
             <div>
@@ -116,12 +148,6 @@ function Chat({ user, tick, handleLogin }) {
               placeholder="Message"
             ></input>
             <img
-              className=" mr-4"
-              src="icons8-attach-64.png"
-              width={"30px"}
-              height={"30px"}
-            ></img>
-            <img
               onClick={startCamera}
               src="icons8-camera-30.png"
               width={"30px"}
@@ -141,7 +167,7 @@ function Chat({ user, tick, handleLogin }) {
             ) : (
               <button className=" text-gray-950 bg-gray-600 p-2 rounded-4xl font-bold">
                 <img
-                  src="icons8-voice-recorder-25.png"
+                  src="icons8-attach-64.png"
                   width={"50px"}
                   height={"50px"}
                 ></img>

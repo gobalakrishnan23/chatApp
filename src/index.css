@@ -1,45 +1,37 @@
 /* import React, { useRef, useState } from "react";
+import Webcam from "react-webcam"; */
 
-const App = () => {
-  const videoRef = useRef(null);
-  const [streaming, setStreaming] = useState(false);
+/* const App = () => {
+  const webcamRef = useRef(null);
+  const [capturedImage, setCapturedImage] = useState(null);
 
-  const startCamera = async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream;
-        setStreaming(true);
-      }
-    } catch (err) {
-      console.error("Error accessing the camera:", err);
-    }
-  };
-
-  const stopCamera = () => {
-    if (videoRef.current && videoRef.current.srcObject) {
-      const tracks = videoRef.current.srcObject.getTracks();
-      tracks.forEach((track) => track.stop());
-      videoRef.current.srcObject = null;
-      setStreaming(false);
-    }
+  const capture = () => {
+    const imageSrc = webcamRef.current.getScreenshot();
+    setCapturedImage(imageSrc);
   };
 
   return (
-    <div className="flex flex-col items-center space-y-4">
-      <button
-        onClick={streaming ? stopCamera : startCamera}
-        className="px-4 py-2 bg-blue-500 text-white rounded-lg"
-      >
-        {streaming ? "Stop Camera" : "Open Camera"}
-      </button>
+    <div className="flex flex-col items-center gap-4 p-4">
+      <Webcam
+        audio={false}
+        ref={webcamRef}
+        screenshotFormat="image/png"
+        className="rounded-lg shadow-lg"
+      />
+      <button onClick={capture}>Capture Photo</button>
 
-      <video ref={videoRef} autoPlay className="w-96 h-72 bg-black rounded-lg" />
+      {capturedImage && (
+        <div>
+          <h3>Captured Image:</h3>
+          <img src={capturedImage} alt="Captured" className="rounded-lg" />
+        </div>
+      )}
     </div>
   );
 };
 
 export default App; */
+
 
 
 
