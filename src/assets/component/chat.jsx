@@ -83,18 +83,20 @@ function Chat({ user, tick, handleLogin }) {
       stream.getTracks().forEach((track) => track.stop()); // Stop previous stream
     }
 
-    try {
-      const newStream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: mode },
-      });
+    if (streaming) {
+      try {
+        const newStream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: mode },
+        });
 
-      if (videoRef.current) {
-        videoRef.current.srcObject = newStream;
+        if (videoRef.current) {
+          videoRef.current.srcObject = newStream;
+        }
+
+        setStream(newStream);
+      } catch (error) {
+        console.error("Error accessing camera:", error);
       }
-
-      setStream(newStream);
-    } catch (error) {
-      console.error("Error accessing camera:", error);
     }
   };
 
@@ -106,7 +108,6 @@ function Chat({ user, tick, handleLogin }) {
   useEffect(() => {
     startCameraa(facingMode);
   }, [facingMode]);
-
 
   return (
     <>
@@ -141,7 +142,7 @@ function Chat({ user, tick, handleLogin }) {
               <div>
                 <div className=" flex justify-center" onClick={capture}>
                   <Webcam
-                    videoConstraints={{facingMode:null}}
+                    videoConstraints={{ facingMode: null }}
                     audio={false}
                     ref={webcamRef}
                     screenshotFormat="image/png"
@@ -155,7 +156,8 @@ function Chat({ user, tick, handleLogin }) {
                   ></img>
                 </div>
                 <div>
-                  <img onClick={toggleCamera}
+                  <img
+                    onClick={toggleCamera}
                     src="icons8-change-48.png"
                     className="w-10 h-10 rounded-4xl fixed bottom-17 right-15"
                   ></img>
