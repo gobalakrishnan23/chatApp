@@ -64,8 +64,8 @@ function Chat({ user, tick, handleLogin }) {
             <div>
               <div>
                 <img
-                  width={"40px"}
-                  height={"40px"}
+                  width={"50px"}
+                  height={"50px"}
                   src="icons8-happy-50.png"
                   onClick={handleEmoji}
                 ></img>
@@ -77,7 +77,7 @@ function Chat({ user, tick, handleLogin }) {
               )}
             </div>
             <input
-              className="  w-full placeholder:text-white outline-0 text-white"
+              className="  w-full placeholder:text-white outline-0 text-white my-3"
               type="text"
               value={text}
               onChange={(e) => setText(e.target.value)}
@@ -100,19 +100,18 @@ function Chat({ user, tick, handleLogin }) {
               >
                 <img
                   src="icons8-sent-48.png"
-                  width={"30px"}
-                  height={"30px"}
+                  width={"50px"}
+                  height={"50px"}
                 ></img>
               </button>
             ) : (
               <button
-                onClick={handleSubmit}
                 className=" text-gray-950 bg-gray-600 p-2 rounded-4xl font-bold"
               >
                 <img
                   src="icons8-voice-recorder-25.png"
-                  width={"30px"}
-                  height={"30px"}
+                  width={"50px"}
+                  height={"50px"}
                 ></img>
               </button>
             )}
