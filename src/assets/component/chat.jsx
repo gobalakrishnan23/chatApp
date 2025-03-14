@@ -77,7 +77,7 @@ function Chat({ user, tick, handleLogin }) {
     }
   };
 
-  const toggleCamera = () => {
+  const toggleCamera = async () => {
     setFacingMode((prev) => (prev === "user" ? "environment" : "user"));
   };
 
