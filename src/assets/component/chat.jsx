@@ -12,11 +12,12 @@ function Chat({ user, tick, handleLogin }) {
   const [show, setShow] = useState(false);
   const messagesRef = collection(db, "messages");
   const messagesEndRef = useRef("");
-  const videoRef = useRef(null);
   const [streaming, setStreaming] = useState(false);
   const webcamRef = useRef(null);
   const [capturedImage, setCapturedImage] = useState([]);
-  const [facingMode, setFacingMode] = useState("user");
+  const videoRef = useRef(null);
+  const [facingMode, setFacingMode] = useState("user"); // "user" for front, "environment" for back
+  const [stream, setStream] = useState(null);
 
   const capture = () => {
     const imageSrc = webcamRef.current.getScreenshot();
@@ -77,9 +78,34 @@ function Chat({ user, tick, handleLogin }) {
     }
   };
 
-  const toggleCamera = async () => {
-    setFacingMode((prev) => (prev === "user" ? "environment" : "user"));
+  const startCameraa = async (mode) => {
+    if (stream) {
+      stream.getTracks().forEach((track) => track.stop()); // Stop previous stream
+    }
+
+    try {
+      const newStream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: mode },
+      });
+
+      if (videoRef.current) {
+        videoRef.current.srcObject = newStream;
+      }
+
+      setStream(newStream);
+    } catch (error) {
+      console.error("Error accessing camera:", error);
+    }
   };
+
+  const toggleCamera = () => {
+    const newMode = facingMode === "user" ? "environment" : "user";
+    setFacingMode(newMode);
+  };
+
+  useEffect(() => {
+    startCameraa(facingMode);
+  }, [facingMode]);
 
 
   return (
