@@ -1,38 +1,50 @@
-/* import React, { useState } from "react";
-import data from "@emoji-mart/data";
-import Picker from "@emoji-mart/react";
+/* import React, { useRef, useState } from "react";
 
+const App = () => {
+  const videoRef = useRef(null);
+  const [streaming, setStreaming] = useState(false);
 
-export default function () {
-  const [text, setText] = useState("");
-  const [showPicker, setShowPicker] = useState(false);
-  const [show,setShow] = useState(false);
-
-  const addEmoji = (emoji) => {
-    setText(text + emoji.native);
-    setShowPicker(false);
+  const startCamera = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream;
+        setStreaming(true);
+      }
+    } catch (err) {
+      console.error("Error accessing the camera:", err);
+    }
   };
-  function handleSubmit(){
-     setShow(!show)
-  }
+
+  const stopCamera = () => {
+    if (videoRef.current && videoRef.current.srcObject) {
+      const tracks = videoRef.current.srcObject.getTracks();
+      tracks.forEach((track) => track.stop());
+      videoRef.current.srcObject = null;
+      setStreaming(false);
+    }
+  };
 
   return (
-    <div className="flex items-center space-x-2 border p-2 rounded-md shadow-sm">
-      <input
-        type="text"
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        placeholder="Type a message..."
-        className="border-none focus:ring-0 flex-1 outline-none"
-      />
-      <div open={showPicker} onOpenChange={setShowPicker}>
-        <div>
-          <img src="images/icons8-happy-50.png"onClick={handleSubmit}></img>
-        </div>
-        {show && <div className="p-2">
-          <Picker data={data} onEmojiSelect={addEmoji} />
-        </div>}
-      </div>
+    <div className="flex flex-col items-center space-y-4">
+      <button
+        onClick={streaming ? stopCamera : startCamera}
+        className="px-4 py-2 bg-blue-500 text-white rounded-lg"
+      >
+        {streaming ? "Stop Camera" : "Open Camera"}
+      </button>
+
+      <video ref={videoRef} autoPlay className="w-96 h-72 bg-black rounded-lg" />
     </div>
   );
-} */
+};
+
+export default App; */
+
+
+
+
+
+
+
+/* When you’re signed in, all of the Google services you use work together seamlessly to offer help with everyday tasks like syncing your Gmail with your Google Calendar and Google Maps to make sure you’re always on top of your schedule. */
