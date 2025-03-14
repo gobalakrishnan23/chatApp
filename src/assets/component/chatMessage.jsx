@@ -1,6 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
-function ChatMessage({ text, logo, email, user, messagesEndRef, name, tick }) {
+function ChatMessage({
+  text,
+  logo,
+  email,
+  user,
+  messagesEndRef,
+  name,
+  tick,
+  date,
+}) {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, ["active"]);
@@ -16,9 +25,19 @@ function ChatMessage({ text, logo, email, user, messagesEndRef, name, tick }) {
       >
         {user.email === email ? (
           <div className="active">
-            <span className="message-right flex gap-1 w-fit h-fit items-center">
+            <span className="message-right flex gap-1 w-fit h-fit flex-col">
               <span className="message-text " ref={messagesEndRef}>
                 {text}
+              </span>
+              <span>
+                <p className=" text-xs p-2">
+                  {new Date(
+                    date.seconds * 1000 + date.nanoseconds / 1e6
+                  ).toLocaleString("en-US", {
+                    dateStyle: "short",
+                    timeStyle: "short",
+                  })}
+                </p>
               </span>
             </span>
             <div className=" flex gap-2 items-center justify-end pr-2">
@@ -28,9 +47,19 @@ function ChatMessage({ text, logo, email, user, messagesEndRef, name, tick }) {
           </div>
         ) : (
           <div className="active">
-            <span className="message-left flex gap-1 w-fit items-center">
+            <span className="message-left flex gap-1 w-fit h-fit flex-col">
               <span className="message-text" ref={messagesEndRef}>
                 {text}
+              </span>
+              <span>
+                <p className=" text-xs p-2">
+                  {new Date(
+                    date.seconds * 1000 + date.nanoseconds / 1e6
+                  ).toLocaleString("en-US", {
+                    dateStyle: "short",
+                    timeStyle: "short",
+                  })}
+                </p>
               </span>
             </span>
             <div className=" flex gap-2 items-center pl-2">

@@ -60,17 +60,19 @@ function Chat({ user, tick, handleLogin }) {
               />
             ))}
           </div>
-          <div className=" flex bg-gray-700 p-1 px-4 gap-3 items-center">
+          <div className=" flex bg-gray-700 p-1 px-4 gap-5 items-center">
             <div>
               <div>
-                <img width={"40px"} height={"40px"}
+                <img
+                  width={"40px"}
+                  height={"40px"}
                   src="icons8-happy-50.png"
                   onClick={handleEmoji}
                 ></img>
               </div>
               {show && (
                 <div className="p-2 fixed left-0 bottom-13">
-                  <Picker data={data} onEmojiSelect={addEmoji}/>
+                  <Picker data={data} onEmojiSelect={addEmoji} />
                 </div>
               )}
             </div>
@@ -81,12 +83,39 @@ function Chat({ user, tick, handleLogin }) {
               onChange={(e) => setText(e.target.value)}
               placeholder="Message"
             ></input>
-            <button
-              onClick={handleSubmit}
-              className=" text-gray-950 bg-gray-600 p-2 rounded-4xl font-bold"
-            >
-              send
-            </button>
+            <img className=" mr-4"
+              src="icons8-attach-64.png"
+              width={"30px"}
+              height={"30px"}
+            ></img>
+            <img
+              src="icons8-camera-30.png"
+              width={"30px"}
+              height={"30px"}
+            ></img>
+            {text ? (
+              <button
+                onClick={handleSubmit}
+                className=" text-gray-950 bg-gray-600 p-2 rounded-4xl font-bold"
+              >
+                <img
+                  src="icons8-sent-48.png"
+                  width={"30px"}
+                  height={"30px"}
+                ></img>
+              </button>
+            ) : (
+              <button
+                onClick={handleSubmit}
+                className=" text-gray-950 bg-gray-600 p-2 rounded-4xl font-bold"
+              >
+                <img
+                  src="icons8-voice-recorder-25.png"
+                  width={"30px"}
+                  height={"30px"}
+                ></img>
+              </button>
+            )}
           </div>
         </div>
       </div>
