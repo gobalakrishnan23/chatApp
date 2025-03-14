@@ -4,6 +4,7 @@ import { addDoc, collection, doc, onSnapshot } from "firebase/firestore";
 import { db } from "../config/firebase";
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
+import Webcam from "react-webcam";
 
 function Chat({ user, tick, handleLogin }) {
   const [message, setMessage] = useState([]);
@@ -15,6 +16,7 @@ function Chat({ user, tick, handleLogin }) {
   const [streaming, setStreaming] = useState(false);
   const webcamRef = useRef(null);
   const [capturedImage, setCapturedImage] = useState([]);
+  const [facingMode, setFacingMode] = useState("user");
 
   const capture = () => {
     const imageSrc = webcamRef.current.getScreenshot();
@@ -75,6 +77,11 @@ function Chat({ user, tick, handleLogin }) {
     }
   };
 
+  const toggleCamera = () => {
+    setFacingMode((prev) => (prev === "user" ? "environment" : "user"));
+  };
+
+
   return (
     <>
       <div className=" flex justify-center items-center w-screen h-screen flex-col">
@@ -107,7 +114,13 @@ function Chat({ user, tick, handleLogin }) {
             {streaming && (
               <div>
                 <div className=" flex justify-center" onClick={capture}>
-                  <button className=" border-2 border-white w-15 h-15 rounded-4xl fixed bg-white bottom-15"></button>
+                  <Webcam
+                    videoConstraints={{facingMode:null}}
+                    audio={false}
+                    ref={webcamRef}
+                    screenshotFormat="image/png"
+                    className=" border-2 border-white bg-white w-20 h-20 fixed bottom-17 rounded-4xl z-10"
+                  />
                 </div>
                 <div>
                   <img
@@ -116,7 +129,7 @@ function Chat({ user, tick, handleLogin }) {
                   ></img>
                 </div>
                 <div>
-                  <img
+                  <img onClick={toggleCamera}
                     src="icons8-change-48.png"
                     className="w-10 h-10 rounded-4xl fixed bottom-17 right-15"
                   ></img>
