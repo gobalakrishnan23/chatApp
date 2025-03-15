@@ -28,8 +28,9 @@ function ChatMessage({
           <div className="active">
             <span className="message-right flex gap-1 w-fit h-fit flex-col">
               <span className="message-text " ref={messagesEndRef}>
-                {text}{previewUrl}
+                {text}
               </span>
+              <img src={previewUrl}></img>
               <span>
                 <p className=" text-xs p-2">
                   {new Date(
@@ -50,8 +51,9 @@ function ChatMessage({
           <div className="active">
             <span className="message-left flex gap-1 w-fit h-fit flex-col">
               <span className="message-text" ref={messagesEndRef}>
-                {text}{ }
+                {text}
               </span>
+              <img src={previewUrl}></img>
               <span>
                 <p className=" text-xs p-2">
                   {new Date(

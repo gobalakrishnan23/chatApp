@@ -147,7 +147,6 @@ function Chat({ user, tick, handleLogin }) {
                 key={message.id}
                 messagesEndRef={messagesEndRef}
                 tick={tick}
-                previewUrl={previewUrl}
               />
             ))}
 
