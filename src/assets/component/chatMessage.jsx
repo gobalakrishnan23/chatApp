@@ -9,6 +9,7 @@ function ChatMessage({
   name,
   tick,
   date,
+  previewUrl
 }) {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -27,7 +28,7 @@ function ChatMessage({
           <div className="active">
             <span className="message-right flex gap-1 w-fit h-fit flex-col">
               <span className="message-text " ref={messagesEndRef}>
-                {text}
+                {text}{previewUrl}
               </span>
               <span>
                 <p className=" text-xs p-2">

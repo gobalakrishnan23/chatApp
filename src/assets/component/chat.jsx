@@ -5,6 +5,7 @@ import { db } from "../config/firebase";
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 import Webcam from "react-webcam";
+import { XCircle } from "lucide-react";
 
 function Chat({ user, tick, handleLogin }) {
   const [message, setMessage] = useState([]);
@@ -18,6 +19,9 @@ function Chat({ user, tick, handleLogin }) {
   const videoRef = useRef(null);
   const [facingMode, setFacingMode] = useState("user"); // "user" for front, "environment" for back
   const [stream, setStream] = useState(null);
+
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState("");
 
   const capture = () => {
     const imageSrc = webcamRef.current.getScreenshot();
@@ -38,7 +42,7 @@ function Chat({ user, tick, handleLogin }) {
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [handleLogin]);
+  }, [handleLogin,previewUrl]);
 
   useEffect(() => {
     const unsubscribe = onSnapshot(messagesRef, (quertSnapshot) => {
@@ -109,6 +113,28 @@ function Chat({ user, tick, handleLogin }) {
     startCameraa(facingMode);
   }, [facingMode]);
 
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setSelectedImage(file);
+      setPreviewUrl(URL.createObjectURL(file));
+    }
+  };
+
+  const handleSend = () => {
+    if (!selectedImage) {
+      alert("Please select an image first!");
+      return;
+    }
+
+    // Simulating an API request
+    const formData = new FormData();
+    formData.append("image", selectedImage);
+
+    console.log("Sending Image:", selectedImage.name);
+    alert("Image sent successfully!");
+  };
+
   return (
     <>
       <div className=" flex justify-center items-center w-screen h-screen flex-col">
@@ -121,8 +147,38 @@ function Chat({ user, tick, handleLogin }) {
                 key={message.id}
                 messagesEndRef={messagesEndRef}
                 tick={tick}
+                previewUrl={previewUrl}
               />
             ))}
+
+            {previewUrl && (
+              <div className="relative">
+                <img
+                  src={previewUrl}
+                  alt="Preview"
+                  className="w-40 h-40 object-cover rounded-md"
+                />
+                <button
+                  onClick={() => {
+                    setSelectedImage(null);
+                    setPreviewUrl("");
+                  }}
+                  className="absolute top-1 right-1 text-red-500"
+                >
+                  <XCircle size={20} />
+                </button>
+                <button
+                  onClick={handleSend}
+                  className=" text-gray-950 bg-gray-600 p-2 rounded-4xl font-bold absolute bottom-1 right-1"
+                >
+                  <img
+                    src="icons8-sent-48.png"
+                    width={"50px"}
+                    height={"50px"}
+                  ></img>
+                </button>
+              </div>
+            )}
 
             {streaming && (
               <video
@@ -206,13 +262,25 @@ function Chat({ user, tick, handleLogin }) {
                 ></img>
               </button>
             ) : (
-              <button className=" text-gray-950 bg-gray-600 p-2 rounded-4xl font-bold">
-                <img
-                  src="icons8-attach-64.png"
-                  width={"50px"}
-                  height={"50px"}
-                ></img>
-              </button>
+              <div className=" text-gray-950 bg-gray-600 p-2 rounded-4xl font-bold">
+                <input
+                  style={{ display: "none" }}
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  className="hidden"
+                  id="imageUpload"
+                />
+                <label htmlFor="imageUpload" className="cursor-pointer">
+                  <div>
+                    <img
+                      width={"50px"}
+                      height={"50px"}
+                      src="icons8-attach-64.png"
+                    />
+                  </div>
+                </label>
+              </div>
             )}
           </div>
         </div>
