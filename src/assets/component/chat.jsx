@@ -42,7 +42,7 @@ function Chat({ user, tick, handleLogin }) {
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [handleLogin,previewUrl]);
+  }, [handleLogin, previewUrl]);
 
   useEffect(() => {
     const unsubscribe = onSnapshot(messagesRef, (quertSnapshot) => {
@@ -121,8 +121,7 @@ function Chat({ user, tick, handleLogin }) {
     }
   };
 
-  async function handleSend () {
-
+  async function handleSend() {
     const date = new Date();
     await addDoc(messagesRef, {
       text,
@@ -132,8 +131,7 @@ function Chat({ user, tick, handleLogin }) {
       date,
       previewUrl,
     });
-    setPreviewUrl("")
-  };
+  }
 
   return (
     <>
@@ -167,7 +165,10 @@ function Chat({ user, tick, handleLogin }) {
                   <XCircle size={20} />
                 </button>
                 <button
-                  onClick={handleSend}
+                  onClick={() => {
+                    handleSend();
+                    handleUpload();
+                  }}
                   className=" text-gray-950 bg-gray-600 p-2 rounded-4xl font-bold absolute bottom-1 right-1"
                 >
                   <img

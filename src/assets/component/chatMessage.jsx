@@ -9,7 +9,7 @@ function ChatMessage({
   name,
   tick,
   date,
-  previewUrl
+  previewUrl,
 }) {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
