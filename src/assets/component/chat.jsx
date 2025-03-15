@@ -121,18 +121,18 @@ function Chat({ user, tick, handleLogin }) {
     }
   };
 
-  const handleSend = () => {
-    if (!selectedImage) {
-      alert("Please select an image first!");
-      return;
-    }
+  async function handleSend () {
 
-    // Simulating an API request
-    const formData = new FormData();
-    formData.append("image", selectedImage);
-
-    console.log("Sending Image:", selectedImage.name);
-    alert("Image sent successfully!");
+    const date = new Date();
+    await addDoc(messagesRef, {
+      text,
+      email: user.email,
+      logo: user.photoUrl,
+      name: user.displayName,
+      date,
+      previewUrl,
+    });
+    setPreviewUrl("")
   };
 
   return (

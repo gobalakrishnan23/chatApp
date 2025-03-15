@@ -15,7 +15,7 @@ function ChatMessage({
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, ["active"]);
 
-  const displayUsername = name.length > 20 ? name.slice(0, 20) + "..." : name;
+  const displayUsername = name?.length > 20 ? name.slice(0, 20) + "..." : name;
 
   return (
     <>
@@ -50,7 +50,7 @@ function ChatMessage({
           <div className="active">
             <span className="message-left flex gap-1 w-fit h-fit flex-col">
               <span className="message-text" ref={messagesEndRef}>
-                {text}
+                {text}{ }
               </span>
               <span>
                 <p className=" text-xs p-2">
