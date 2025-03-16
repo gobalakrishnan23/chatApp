@@ -6,6 +6,7 @@ import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 import Webcam from "react-webcam";
 import { XCircle } from "lucide-react";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 function Chat({ user, tick, handleLogin }) {
   const [message, setMessage] = useState([]);
@@ -22,6 +23,11 @@ function Chat({ user, tick, handleLogin }) {
 
   const [selectedImage, setSelectedImage] = useState(null);
   const [previewUrl, setPreviewUrl] = useState("");
+  const [url, setUrl] = useState("");
+  const [progress, setProgress] = useState(0);
+
+  const [devices, setDevices] = useState([]);
+  const [currentDeviceId, setCurrentDeviceId] = useState(null);
 
   const capture = () => {
     const imageSrc = webcamRef.current.getScreenshot();
@@ -104,10 +110,6 @@ function Chat({ user, tick, handleLogin }) {
     }
   };
 
-  const toggleCamera = () => {
-    const newMode = facingMode === "user" ? "environment" : "user";
-    setFacingMode(newMode);
-  };
 
   useEffect(() => {
     startCameraa(facingMode);
@@ -133,6 +135,66 @@ function Chat({ user, tick, handleLogin }) {
     });
   }
 
+  const handleUpload = () => {
+    if (!previewUrl) return;
+    
+    const storageRef = ref(storage, `images/${previewUrl.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, previewUrl);
+
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        setProgress(progress);
+      },
+      (error) => {
+        console.error("Upload error:", error);
+      },
+      async () => {
+        const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+        setUrl(downloadURL);
+        console.log("File available at", downloadURL);
+      }
+    );
+  };
+
+
+  // switch camera
+
+  
+  const getDevices = async () => {
+    const deviceList = await navigator.mediaDevices.enumerateDevices();
+    const videoDevices = deviceList.filter((device) => device.kind === "videoinput");
+
+    setDevices(videoDevices);
+    if (videoDevices.length > 0) {
+      setCurrentDeviceId(videoDevices[0].deviceId);
+      startCamera(videoDevices[0].deviceId);
+    }
+  };
+
+  const toggleCamera = async (deviceId) => {
+    if (navigator.mediaDevices.getUserMedia) {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { deviceId: { exact: deviceId } },
+      });
+
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream;
+      }
+    }
+  };
+
+  const switchCamera = () => {
+    const currentIndex = devices.findIndex((device) => device.deviceId === currentDeviceId);
+    const nextIndex = (currentIndex + 1) % devices.length;
+    const nextDeviceId = devices[nextIndex].deviceId;
+
+    setCurrentDeviceId(nextDeviceId);
+    toggleCamera(nextDeviceId);
+  };
+
+
   return (
     <>
       <div className=" flex justify-center items-center w-screen h-screen flex-col">
@@ -148,10 +210,10 @@ function Chat({ user, tick, handleLogin }) {
               />
             ))}
 
-            {previewUrl && (
+            {url && (
               <div className="relative">
                 <img
-                  src={previewUrl}
+                  src={url}
                   alt="Preview"
                   className="w-40 h-40 object-cover rounded-md"
                 />
@@ -213,7 +275,7 @@ function Chat({ user, tick, handleLogin }) {
                 </div>
                 <div>
                   <img
-                    onClick={toggleCamera}
+                    onClick={switchCamera}
                     src="icons8-change-48.png"
                     className="w-10 h-10 rounded-4xl fixed bottom-17 right-15"
                   ></img>
@@ -245,7 +307,7 @@ function Chat({ user, tick, handleLogin }) {
               placeholder="Message"
             ></input>
             <img
-              onClick={startCamera}
+              onClick={getDevices}
               src="icons8-camera-30.png"
               width={"30px"}
               height={"30px"}
