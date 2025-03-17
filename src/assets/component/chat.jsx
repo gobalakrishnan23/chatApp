@@ -6,7 +6,6 @@ import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 import Webcam from "react-webcam";
 import { XCircle } from "lucide-react";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 function Chat({ user, tick, handleLogin }) {
   const [message, setMessage] = useState([]);
@@ -23,8 +22,6 @@ function Chat({ user, tick, handleLogin }) {
 
   const [selectedImage, setSelectedImage] = useState(null);
   const [previewUrl, setPreviewUrl] = useState("");
-  const [url, setUrl] = useState("");
-  const [progress, setProgress] = useState(0);
 
   const [devices, setDevices] = useState([]);
   const [currentDeviceId, setCurrentDeviceId] = useState(null);
@@ -134,29 +131,6 @@ function Chat({ user, tick, handleLogin }) {
       previewUrl,
     });
   }
-
-  const handleUpload = () => {
-    if (!previewUrl) return;
-    
-    const storageRef = ref(storage, `images/${previewUrl.name}`);
-    const uploadTask = uploadBytesResumable(storageRef, previewUrl);
-
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        setProgress(progress);
-      },
-      (error) => {
-        console.error("Upload error:", error);
-      },
-      async () => {
-        const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-        setUrl(downloadURL);
-        console.log("File available at", downloadURL);
-      }
-    );
-  };
 
 
   // switch camera
