@@ -184,10 +184,10 @@ function Chat({ user, tick, handleLogin }) {
               />
             ))}
 
-            {url && (
+            {previewUrl && (
               <div className="relative">
                 <img
-                  src={url}
+                  src={previewUrl}
                   alt="Preview"
                   className="w-40 h-40 object-cover rounded-md"
                 />
